@@ -1,0 +1,196 @@
+POST plan/_cache/clear
+
+GET _cat/indices
+
+DELETE plan
+
+
+
+
+
+PUT plan
+{
+ "mappings" : {
+   "properties" : {
+     "objectId" : {
+       "type" : "keyword"
+         },
+         "plan_join" : {
+           "type" : "join" ,
+            "relations" : {
+              "plan" : ["membercostshare","planservice"],
+              "planservice" : ["service","membercostshare_copy"]
+            }
+          }
+        }
+      }
+    }
+
+
+
+GET plan/_mapping
+
+
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "plan",
+      "query" : {
+         "match_all" : {}
+       }
+     }
+   }
+ }
+
+
+
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "plan",
+      "query" : {
+        "bool" : {
+          "must" : [
+            {
+             "match" : {
+               "objectId" : "12xvxc345ssdsds-508"
+            }
+          }
+        ]
+       }
+      }
+     }
+    }
+   }
+
+
+
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "planservice",
+      "query" : {
+        "bool" : {
+          "must" : [
+            {
+             "match" : {
+               "objectId" : "27283xvx9asdff-504"
+            }
+          }
+        ]
+       }
+      }
+     }
+    }
+   }
+
+
+
+GET plan/_search
+{
+  "query" : {
+    "bool" : {
+      "must" : {
+        "bool" : {
+          "must" : [
+            {"match" : {"copay" : 175}},
+            {"match" : {"deductible" : 10}}
+          ]
+         }
+        }
+       }
+      }
+     }
+
+
+
+
+GET plan/_search
+{
+  "query" : {
+    "has_child" : {
+      "type" : "membercostshare",
+      "query" : {
+        "bool" : {
+          "must" : [
+            {
+             "match" : {
+               "objectId" : "1234vxc2324sdf-501"
+            }
+          }
+        ]
+       }
+      }
+     }
+    }
+   }
+
+
+
+
+
+
+
+GET plan/_search
+{
+  "query" : {
+    "has_child" : {
+      "type" : "membercostshare_copy",
+      "query" : {
+        "bool" : {
+          "must" : [
+            {
+             "match" : {
+               "copay" : 90
+            }
+          }
+        ]
+       }
+      }
+     }
+    }
+   }
+
+
+
+GET /plan/_search
+{
+  "query" : {
+    "has_child" : {
+      "type" : "planservice",
+      "query" : {
+        "has_child" : {
+          "type" : "service",
+            "query" : {
+              "match" : {
+                "objectId" : "1234520xvc30asdf-502"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+
+
+GET /plan/_search
+{
+  "query" : {
+    "has_child" : {
+      "type" : "planservice",
+      "query" : {
+        "has_child" : {
+          "type" : "service",
+            "query" : {
+              "match" : {
+                "objectId" : "1234520xvc30sfs-505"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
