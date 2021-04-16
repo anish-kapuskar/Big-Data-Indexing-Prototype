@@ -64,9 +64,32 @@ GET plan/_search
      }
     }
    }
+   
+  
 
 
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "planservice",
+      "query" : {
+        "bool" : {
+          "must" : [
+            {
+             "match" : {
+               "objectId" : "27283xvx9sdf-507"
+            }
+          }
+        ]
+       }
+      }
+     }
+    }
+   }
 
+   
+   
 GET plan/_search
 {
   "query" : {
@@ -86,7 +109,32 @@ GET plan/_search
      }
     }
    }
+   
 
+
+
+GET plan/_search
+{
+  "query": {
+    "wildcard": {
+      "_org": {
+        "value": "example*"
+      }
+    }
+  }
+}
+
+
+GET plan/_search
+{
+  "query": {
+    "wildcard": {
+      "name": {
+        "value": "Yearly*"
+      }
+    }
+  }
+}
 
 
 GET plan/_search
@@ -104,7 +152,55 @@ GET plan/_search
        }
       }
      }
+     
 
+GET plan/_search
+{
+  "query" : {
+    "bool" : {
+      "must" : {
+        "bool" : {
+          "must" : [
+            {"match" : {"copay" : 0}},
+            {"match" : {"deductible" : 10}}
+          ]
+         }
+        }
+       }
+      }
+     }
+     
+     
+GET plan/_search
+{
+  "query" : {
+    "bool" : {
+      "must" : {
+        "bool" : {
+          "must" : [
+            {"match" : {"_org" : "example.com"}}
+          ]
+         }
+        }
+       }
+      }
+     }
+     
+     
+GET plan/_search
+{
+  "query" : {
+    "bool" : {
+      "must" : {
+        "bool" : {
+          "must" : [
+            {"match" : {"name" : "well baby"}}
+          ]
+         }
+        }
+       }
+      }
+     }
 
 
 
@@ -127,7 +223,7 @@ GET plan/_search
      }
     }
    }
-
+   
 
 
 
@@ -144,7 +240,7 @@ GET plan/_search
           "must" : [
             {
              "match" : {
-               "copay" : 90
+               "deductible" : 1010
             }
           }
         ]
@@ -166,16 +262,16 @@ GET /plan/_search
           "type" : "service",
             "query" : {
               "match" : {
-                "objectId" : "1234520xvc30asdf-502"
-              }
+                "objectId" : "1234520xvc30sfs-505"
+              } 
              }
-            }
+            }  
            }
           }
          }
         }
-
-
+        
+        
 GET /plan/_search
 {
   "query" : {
@@ -186,11 +282,17 @@ GET /plan/_search
           "type" : "service",
             "query" : {
               "match" : {
-                "objectId" : "1234520xvc30sfs-505"
-              }
+                "objectId" : "1234520xvc30asdf-502"
+              } 
              }
-            }
+            }  
            }
           }
          }
         }
+
+
+
+
+
+
